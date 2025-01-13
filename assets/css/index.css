@@ -1,0 +1,31 @@
+/* Dropdown Menu */
+#dropdownMenu {
+    top: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+/* Hide Scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* scrollbar */
+#roomsContainer {
+    display: flex;
+    gap: 1.5rem; /* ระยะห่างระหว่างห้อง */
+    overflow-x: auto; /* เปิดใช้งานการเลื่อนแนวนอน */
+    scroll-behavior: smooth; /* ทำให้การเลื่อนสมูท */
+    white-space: nowrap; /* ไม่ตัดคำ */
+    padding-bottom: 1rem; /* ระยะห่างล่างสำหรับ scrollbar */
+}
