@@ -69,11 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide Sidebar</title>
+  <title>Manage Service</title>
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100">
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
     <div class="logo">Gotjung Hotel</div>
@@ -114,46 +114,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
             <!-- Button to open Add Room Modal -->
             <button onclick="toggleModal('addRoomModal')" class="bg-green-500 text-white px-4 py-2 rounded mb-6">Add New Room</button>
             <!-- ตาราง -->
-            <table class="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border border-gray-300 px-4 py-2">Room ID</th>
-                        <th class="border border-gray-300 px-4 py-2">Room Name</th>
-                        <th class="border border-gray-300 px-4 py-2">Price</th>
-                        <th class="border border-gray-300 px-4 py-2">Image</th>
-                        <th class="border border-gray-300 px-4 py-2">Description</th>
-                        <th class="border border-gray-300 px-4 py-2">Type</th>
-                        <th class="border border-gray-300 px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php         
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>" . $row['id_rooms'] . "</td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>" . $row['name_rooms'] . "</td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>" . number_format($row['price'], 2) . "</td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>
-                                    <img src='../assets/images/" . $row['image'] . "' alt='" . $row['name_rooms'] . "' class='h-16 w-16 object-cover'>
-                                </td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>" . $row['description'] . "</td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>" . $row['type_rooms'] . "</td>";
-                            echo "<td class='border border-gray-300 px-4 py-2'>
-                                    <button onclick=\"openEditModal('" . $row['id_rooms'] . "', '" . $row['name_rooms'] . "', '" . $row['price'] . "', '" . $row['type_rooms'] . "', '" . $row['description'] . "', '" . $row['image'] . "')\" class='bg-blue-500 text-white px-2 py-1 rounded'>Edit</button>
-                                    <form method='POST' style='display:inline;' onsubmit=\"return confirm('Are you sure you want to delete this room?')\">
-                                        <input type='hidden' name='delete_id' value='" . $row['id_rooms'] . "'>
-                                        <button type='submit' class='bg-red-500 text-white px-2 py-1 rounded'>Delete</button>
-                                    </form>
-                                </td>";
-                            echo "</tr>";
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+                <table class="table-auto w-full border-collapse border border-gray-200">
+                    <thead>
+                        <tr class="bg-blue-600 text-white">
+                            <th class="px-4 py-2 border border-gray-200">Room ID</th>
+                            <th class="px-4 py-2 border border-gray-200">Room Name</th>
+                            <th class="px-4 py-2 border border-gray-200">Price</th>
+                            <th class="px-4 py-2 border border-gray-200">Image</th>
+                            <th class="px-4 py-2 border border-gray-200">Description</th>
+                            <th class="px-4 py-2 border border-gray-200">Type</th>
+                            <th class="px-4 py-2 border border-gray-200">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php         
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr class='text-center border border-gray-200 hover:bg-gray-100'>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>" . $row['id_rooms'] . "</td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>" . $row['name_rooms'] . "</td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>" . number_format($row['price'], 2) . "</td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>
+                                        <img src='../assets/images/" . $row['image'] . "' alt='" . $row['name_rooms'] . "' class='h-32 w-auto object-cover mx-auto'>
+                                    </td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>" . $row['description'] . "</td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>" . $row['type_rooms'] . "</td>";
+                                echo "<td class='border border-gray-300 px-4 py-2'>
+                                        <button onclick=\"openEditModal('" . $row['id_rooms'] . "', '" . $row['name_rooms'] . "', '" . $row['price'] . "', '" . $row['type_rooms'] . "', '" . $row['description'] . "', '" . $row['image'] . "')\" class='bg-blue-500 text-white px-2 py-1 rounded'>Edit</button>
+                                        <form method='POST' style='display:inline;' onsubmit=\"return confirm('Are you sure you want to delete this room?')\">
+                                            <input type='hidden' name='delete_id' value='" . $row['id_rooms'] . "'>
+                                            <button type='submit' class='bg-red-500 text-white px-2 py-1 rounded'>Delete</button>
+                                        </form>
+                                    </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='7' class='border border-gray-300 px-4 py-2 text-center'>No rooms found</td></tr>";
                         }
-                    } else {
-                        echo "<tr><td colspan='7' class='border border-gray-300 px-4 py-2 text-center'>No rooms found</td></tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
     <!-- Add Room Modal -->
