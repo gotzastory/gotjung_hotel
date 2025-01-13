@@ -1,0 +1,129 @@
+/* Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* ซ่อน Sidebar */
+    width: 250px;
+    height: 100%;
+    background-color: #1e293b; /* สีเข้มดูเป็นมืออาชีพ */
+    color: white;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+    transition: left 0.3s ease; /* Slide Effect */
+  }
+  
+  .sidebar .logo {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 1.8rem;
+    background-color: #0f172a; /* เพิ่มความเข้มสำหรับ Logo */
+    font-weight: bold;
+    color: #38bdf8; /* ใช้สีฟ้าสำหรับเน้น */
+    border-bottom: 1px solid #2e3848;
+  }
+  
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sidebar nav a:hover {
+    background-color: #334155; /* สีเข้มเมื่อ Hover */
+    color: #38bdf8; /* สีฟ้าสำหรับเน้น */
+  }
+  
+  .sidebar nav a svg {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .sidebar .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #0f172a;
+    padding: 1rem;
+  }
+  
+  .sidebar .footer a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .sidebar .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main Content */
+  .main-content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease; /* Slide Effect */
+    padding: 1rem;
+  }
+  
+  .main-content header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาสำหรับ Header */
+  }
+  
+  .main-content header button {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #1e293b;
+  }
+  
+  .main-content header button:hover {
+    color: #38bdf8;
+  }
+  
+  .main-content header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+  }
+  
+  .main-content main {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* เพิ่มความลึก */
+  }
+  
+  .main-content main p {
+    font-size: 1.1rem;
+    color: #4b5563;
+  }
+  
+  header {
+    padding-bottom: 1rem; /* เพิ่มพื้นที่ด้านล่าง Header */
+    margin-bottom: 1rem; /* เพิ่มระยะห่างระหว่าง Header กับเนื้อหา */
+    background-color: #ffffff; /* เงาสำหรับ Header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงา */
+  }
+  
+  main {
+    padding-top: 1rem; /* เพิ่ม Padding ด้านบนของ Main Content */
+  }
+  
+  
