@@ -4,13 +4,15 @@ session_start(); // เริ่มต้น Session
 // เชื่อมต่อฐานข้อมูล
 include './includes/db_connect.php';
 
+// ดึงข้อความ Success จาก Session (ถ้ามี)
+if (isset($_SESSION['success_message'])) {
+    echo "<script>alert('" . $_SESSION['success_message'] . "');</script>";
+    unset($_SESSION['success_message']); // ลบข้อความหลังจากแสดงผลแล้ว
+}
+
 // ดึงข้อมูลห้องพักจากตาราง rooms
 $query = "SELECT * FROM rooms";
 $result = mysqli_query($conn, $query);
-
-if (!$result) {
-    die("Query Failed: " . mysqli_error($conn));
-}
 
 // contact
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -93,9 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-cover bg-center h-screen" style="background-image: url('./assets/images/pngtree-exquisite-hotel-bedroom-suite-with-a-classic-orange-theme-rendered-in-picture-image_4058872.jpg');">
+    <section class="relative bg-cover bg-center h-screen" style="background-image: url('./assets/images/index/beautiful-interior-view-of-a-room-at-coastal-free-photo.jpg');">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
-            <div class="bg-black bg-opacity-70 p-12 rounded-lg text-center">
+            <div class="bg-black bg-opacity-70 p-12 rounded-lg text-center" data-aos="zoom-in">
                 <h1 class="text-5xl font-bold">Welcome to GotJung Hotel</h1>
                 <p class="text-xl mt-8">Discover comfort, luxury, and unforgettable moments at our hotel!</p>
                 <div class="mt-10">
@@ -110,12 +112,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container mx-auto text-center">
             <h2 class="text-3xl font-bold mb-6 text-orange-500 text-left">Our Rooms</h2>
             <p class="mb-8 text-gray-600 text-left">Explore a selection of rooms crafted to provide a remarkable stay experience.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-0" data-aos="fade-up">
                 <?php
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo '<div class="bg-white rounded-lg p-4" style="width: 300px; height: 450px; margin: 0 auto;">';
-                            echo '<img src="./assets/images/' . $row['image'] . '" alt="' . htmlspecialchars($row['name_rooms']) . '" class="h-40 w-full object-cover rounded mb-4">';
+                            echo '<img src="./assets/images/main_image/' . $row['image'] . '" alt="' . htmlspecialchars($row['name_rooms']) . '" class="h-40 w-full object-cover rounded mb-4">';
                             echo '<h3 class="text-lg font-bold mb-2 text-left">' . htmlspecialchars($row['name_rooms']) . '</h3>';
                             echo '<p class="text-orange-500 font-bold mb-2 text-left">฿' . number_format($row['price'], 2) . '</p>';
                             echo '<p class="text-gray-700 text-sm mb-4 text-left"><strong>Description:</strong> ' . htmlspecialchars($row['description']) . '</p>';
@@ -137,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="text-orange-400 mb-10">Enjoy top-notch facilities designed for a comfortable stay.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 <!-- Amenity Card -->
-                <div class="bg-white rounded-lg p-12 text-center shadow">
+                <div class="bg-white rounded-lg p-12 text-center shadow" data-aos="fade-right">
                     <div class="text-orange-500 text-4xl mb-4">
                         <i class="fas fa-swimmer"></i> <!-- ไอคอนสระว่ายน้ำ -->
                     </div>
@@ -145,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="text-gray-600 text-sm">Relax in our outdoor pool with beautiful views.</p>
                 </div>
                 <!-- Fitness Center -->
-                <div class="bg-white rounded-lg p-12 text-center shadow">
+                <div class="bg-white rounded-lg p-12 text-center shadow" data-aos="fade-up">
                     <div class="text-orange-500 text-4xl mb-4">
                         <i class="fas fa-dumbbell"></i>
                     </div>
@@ -153,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="text-gray-600 text-sm">Stay active with state-of-the-art equipment.</p>
                 </div>
                 <!-- Restaurant -->
-                <div class="bg-white rounded-lg p-12 text-center shadow">
+                <div class="bg-white rounded-lg p-12 text-center shadow" data-aos="fade-down">
                     <div class="text-orange-500 text-4xl mb-4">
                         <i class="fas fa-utensils"></i>
                     </div>
@@ -161,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="text-gray-600 text-sm">Enjoy delicious meals prepared by top chefs.</p>
                 </div>
                 <!-- Spa -->
-                <div class="bg-white rounded-lg p-12 text-center shadow">
+                <div class="bg-white rounded-lg p-12 text-center shadow" data-aos="fade-left">
                     <div class="text-orange-500 text-4xl mb-4" >
                         <i class="fas fa-spa"></i>
                     </div>

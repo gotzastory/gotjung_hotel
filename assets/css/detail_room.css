@@ -1,0 +1,6 @@
+/* Custom hover effects for arrows */
+.arrow-btn:hover {
+    background-color: #ff6600;
+    color: white;
+    transform: scale(1.1);
+}

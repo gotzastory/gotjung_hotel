@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(to bottom, #f97316, #fef3c7);
+}
+
+.header-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+button:hover {
+    cursor: pointer;
+}

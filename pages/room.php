@@ -28,6 +28,7 @@ $stmt->bind_param(str_repeat('s', count($params)), ...$params);
 // Execute
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +88,7 @@ $result = $stmt->get_result();
     </header>
 
     <!-- Hero Section with Search -->
-    <section class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('../assets/images/pngtree-exquisite-hotel-bedroom-suite-with-a-classic-orange-theme-rendered-in-picture-image_4058872.jpg'); height: 400px;">
+    <section class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('../assets/images/index/beautiful-interior-view-of-a-room-at-coastal-free-photo.jpg'); height: 400px;">
         <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
             <h2 class="text-4xl font-bold mb-4">Welcome to GotJung Hotel</h2>
             <p class="text-lg mb-6">Discover luxury, comfort, and convenience in the heart of the city</p>
@@ -137,11 +138,12 @@ $result = $stmt->get_result();
             <?php
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo '<div class="bg-white rounded-lg shadow-md p-4">';
-                        echo '<img src="../assets/images/' . $row['image'] . '" alt="' . htmlspecialchars($row['name_rooms']) . '" class="h-40 w-full object-cover rounded mb-4">';
+                        echo '<div class="bg-white rounded-lg shadow-md p-4" data-aos="fade-up" data-aos-anchor-placement="top-bottom">';
+                        echo '<img src="../assets/images/main_image/' . $row['image'] . '" alt="' . htmlspecialchars($row['name_rooms']) . '" class="h-40 w-full object-cover rounded mb-4">';
                         echo '<h3 class="text-lg font-bold mb-2">' . htmlspecialchars($row['name_rooms']) . '</h3>';
                         echo '<p class="text-orange-500 font-bold mb-2">฿' . number_format($row['price'], 2) . '</p>';
-                        echo '<p class="text-gray-700 text-sm mb-4">' . htmlspecialchars($row['description']) . '</p>';
+                        echo '<p class="text-sm mb-2">ประเภท: ' . htmlspecialchars($row['type_rooms']) . '</p>';
+                        echo '<p class="text-gray-700 text-sm mb-4">รายละเอียด: ' . htmlspecialchars($row['description']) . '</p>';
                         echo '<a href="detail_room.php?room_id=' . $row['id_rooms'] . '" class="bg-orange-500 text-white font-bold w-full block text-center py-2 rounded hover:bg-orange-600">Book now</a>';
                         echo '</div>';
                     }
@@ -156,7 +158,7 @@ $result = $stmt->get_result();
         function updatePrice(value) {
     document.getElementById('price-display').textContent = value;
     }
-
+    
     // กำหนดค่าเริ่มต้นเมื่อโหลดหน้า
     document.addEventListener('DOMContentLoaded', () => {
         const priceInput = document.getElementById('price');

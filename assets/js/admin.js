@@ -48,7 +48,7 @@ window.toggleModal = (modalId) => {
 };
 
 // Function to open the edit modal and set its data
-window.openEditModal = (id, name, price, type, description) => {
+window.openEditModal = (id, name, price, type, description, amenities) => {
     const roomIdField = document.getElementById('edit-room-id');
     const roomNameField = document.getElementById('edit-room-name');
     const roomPriceField = document.getElementById('edit-room-price');
@@ -62,8 +62,90 @@ window.openEditModal = (id, name, price, type, description) => {
         roomTypeField.value = type;
         roomDescriptionField.value = description;
 
+        // Set amenities checkboxes
+        const amenitiesArray = amenities.split(", ");
+        document.querySelectorAll("input[name='amenities[]']").forEach(checkbox => {
+            checkbox.checked = amenitiesArray.includes(checkbox.value);
+        });
+
         toggleModal('editRoomModal');
     } else {
         console.error('One or more fields not found in the edit modal.');
     }
 };
+
+// Function to handle form submission dynamically
+window.handleFormSubmit = (formId, successCallback, errorCallback) => {
+    const form = document.getElementById(formId);
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successCallback(data);
+                } else {
+                    errorCallback(data);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    } else {
+        console.error(`Form with ID ${formId} not found.`);
+    }
+};
+
+// ฟังก์ชันอัปเดตสถานะการชำระเงินใน manage_bookings.php
+function updatePaymentStatus(id) {
+    if (confirm("Are you sure you want to mark this booking as paid?")) {
+        fetch('manage_bookings.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `update_payment_id=${id}`,
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'success') {
+                alert('Payment status updated successfully!'); // Alert แจ้งความสำเร็จ
+                location.reload(); // โหลดหน้าใหม่
+            } else {
+                alert('Failed to update payment status. Please try again.'); // Alert แจ้งความล้มเหลว
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.'); // แจ้งข้อผิดพลาด
+        });
+    }
+}
+
+// ฟังก์ชันลบการจองใน manage_bookings.php
+function deleteBooking(id) {
+    if (confirm("Are you sure you want to delete this booking?")) {
+        fetch('manage_bookings.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `delete_booking_id=${id}`, // ส่ง ID ที่ถูกต้อง
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'success') {
+                alert('Booking deleted successfully!');
+                location.reload(); // โหลดหน้าใหม่หลังจากลบสำเร็จ
+            } else {
+                alert('Failed to delete booking. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}

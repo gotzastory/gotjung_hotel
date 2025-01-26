@@ -11,7 +11,7 @@ include '../includes/db_connect.php';
 
 // ดึงข้อมูลสถิติ
 $total_rooms = $conn->query("SELECT COUNT(*) AS total FROM rooms")->fetch_assoc()['total'];
-$total_bookings = $conn->query("SELECT COUNT(*) AS total FROM booking")->fetch_assoc()['total'];
+$total_bookings = $conn->query("SELECT COUNT(*) AS total FROM bookings")->fetch_assoc()['total'];
 $total_customers = $conn->query("SELECT COUNT(*) AS total FROM customers")->fetch_assoc()['total'];
 $total_messages = $conn->query("SELECT COUNT(*) AS total FROM contacts")->fetch_assoc()['total'];
 
@@ -40,40 +40,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/admin.css">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/admin.css"> <!-- ไฟล์ CSS สำหรับ Admin -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwindcss script -->
+    <!-- font font-awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <body class="bg-gray-100">
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-    <div class="logo">Gotjung Hotel</div>
-    <nav>
-    <a href="dashboard.php">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M3 10h18M3 16h18"></path>
-        </svg>
-        Dashboard
-    </a>
-    <a href="manage_services.php">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m0 0l-4-4m4 4H3"></path>
-        </svg>
-        Manage Service
-    </a>
-    <a href="manage_bookings.php">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
-        Manage Booking
-    </a>
-    </nav>
-    <div class="footer">
-    <a href="logout.php">Logout</a>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="logo">Gotjung Hotel</div>
+        <nav>
+            <a href="dashboard.php">
+                <i class="fas fa-tachometer-alt"></i> <!-- Font Awesome Icon -->
+                Dashboard
+            </a>
+            <a href="manage_services.php">
+                <i class="fas fa-concierge-bell"></i> <!-- Font Awesome Icon -->
+                Manage Service
+            </a>
+            <a href="manage_bookings.php">
+                <i class="fas fa-calendar-check"></i> <!-- Font Awesome Icon -->
+                Manage Booking
+            </a>
+        </nav>
+        <div class="footer">
+            <a href="logout.php">
+                <i class="fas fa-sign-out-alt"></i> <!-- Font Awesome Icon -->
+                Logout
+            </a>
+        </div>
     </div>
-</div>
 
 <!-- Header -->
 <div class="main-content">
