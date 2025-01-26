@@ -79,10 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </button>
                         <!-- Dropdown Menu -->
                         <div id="dropdownMenu" class="absolute mt-2 w-48 bg-white text-black rounded-lg shadow-lg hidden" style="z-index: 50;">
-                            <a href="user/Profile.php" class="block px-4 py-2 hover:bg-gray-200">โปรไฟล์</a>
-                            <a href="user/logout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">ออกจากระบบ</a>
+                            <a href="./user/Profile.php" class="block px-4 py-2 hover:bg-gray-200">โปรไฟล์</a>
+                            <a href="./user/logout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">ออกจากระบบ</a>
                         </div>
-
                     </div>
                 <?php else: ?>
                     <!-- Login/Register Button -->

@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // สร้าง Session
             $_SESSION['customer_name'] = $user['fullname'];
             $_SESSION['id_customers'] = $user['id_customers'];
-            echo "<script>alert('เข้าสู่ระบบเรียบร้อยแล้ว'); window.location.href = '../index.php';</script>";
+            header('Location: ../index.php');
             exit();
         } else {
             $error = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
@@ -61,15 +61,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2 class="text-2xl font-bold text-orange-600 mb-6">เข้าสู่ระบบ</h2>
 
             <!-- Form -->
-            <form action="" method="POST">
+            <form action="login_process.php" method="POST">
+                <!-- Email -->
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">อีเมล</label>
-                    <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    <label for="email" class="block text-gray-700 mb-2">อีเมล</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
                 </div>
+
+                <!-- Password -->
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
-                    <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    <label for="password" class="block text-gray-700 mb-2">รหัสผ่าน</label>
+                    <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
                 </div>
+
+                <!-- Submit Button -->
                 <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600">เข้าสู่ระบบ</button>
             </form>
 
