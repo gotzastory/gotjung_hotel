@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2025 at 03:45 PM
+-- Generation Time: Jan 27, 2025 at 07:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -44,17 +44,31 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Table structure for table `bookings`
 --
 
-CREATE TABLE `booking` (
+CREATE TABLE `bookings` (
   `id_booking` int(11) NOT NULL,
   `id_rooms` int(11) NOT NULL,
-  `booking_date` date NOT NULL,
+  `booking_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `payment_status` enum('pending','paid') DEFAULT 'pending',
+  `id_customers` int(11) NOT NULL,
   `check_in` date NOT NULL,
   `check_out` date NOT NULL,
-  `id_customers` int(11) NOT NULL
+  `nights` int(11) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `payment_slip` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id_booking`, `id_rooms`, `booking_date`, `payment_status`, `id_customers`, `check_in`, `check_out`, `nights`, `total_price`, `payment_slip`) VALUES
+(6, 2, '2025-01-26 14:51:08', 'paid', 2, '2025-01-26', '2025-01-27', 1, 1.00, '473761340_1639070366708399_9173598766972158309_n.jpg'),
+(8, 2, '2025-01-26 16:56:25', 'paid', 6, '2025-01-26', '2025-01-27', 1, 1.00, '473761340_1639070366708399_9173598766972158309_n.jpg'),
+(11, 1, '2025-01-27 07:53:23', 'paid', 8, '2025-01-27', '2025-01-28', 1, 1000.00, '473761340_1639070366708399_9173598766972158309_n.jpg'),
+(12, 1, '2025-01-27 17:36:23', 'paid', 1, '2025-01-28', '2025-01-29', 1, 1000.00, '473761340_1639070366708399_9173598766972158309_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -64,10 +78,28 @@ CREATE TABLE `booking` (
 
 CREATE TABLE `contacts` (
   `id_contacts` int(11) NOT NULL,
-  `id_booking` int(11) NOT NULL,
-  `id_customers` int(11) NOT NULL,
-  `contact_date` date NOT NULL
+  `full_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `message` text NOT NULL,
+  `contact_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id_contacts`, `full_name`, `email`, `phone_number`, `message`, `contact_date`) VALUES
+(4, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'เหมี๊ยว', '2025-01-13 14:27:38'),
+(5, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'เหมี๊ยว', '2025-01-13 15:24:07'),
+(6, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'เหมี๊ยว', '2025-01-13 15:24:14'),
+(7, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'เหมี๊ยว', '2025-01-13 15:24:31'),
+(8, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'เหมี๊ยว', '2025-01-13 15:45:24'),
+(9, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'มอร์', '2025-01-13 16:05:19'),
+(10, 'สมเด็จวัว', 'cowcat@gmail.com', 'xxx', 'มอร์', '2025-01-13 16:06:02'),
+(11, 'เมจิ', 'meji@gmail.com', '0918457813', 'ก็อตเม', '2025-01-21 16:08:59'),
+(12, 'เมจิ', 'meji@gmail.com', '0918457813', 'ก็อตจ้าาา', '2025-01-22 08:22:33'),
+(13, 'ครูแตง', 'krutang@gmail.com', '080000000', 'สวัสดีครับ', '2025-01-27 07:49:28');
 
 -- --------------------------------------------------------
 
@@ -92,7 +124,10 @@ INSERT INTO `customers` (`id_customers`, `fullname`, `email`, `phone`, `password
 (1, 'got', 'got@gmail.com', 'xxx', '1234', '2025-01-06 14:29:42'),
 (2, 'tnp', 'tnp@gmail.com', 'xxx', '0503', '2025-01-06 14:29:53'),
 (3, 'gotchan', 'gotchan@gmail.com', 'xxx', '1234', '2025-01-06 14:49:20'),
-(4, 'ggg', 'ggg@gmail.com', 'xxx', '1234', '2025-01-06 16:29:17');
+(4, 'ggg', 'ggg@gmail.com', 'xxx', '1234', '2025-01-06 16:29:17'),
+(6, 'kanyewest', 'ye@gmail.com', '0999999999', 'ye', '2025-01-26 16:55:43'),
+(7, 'เมจิคนฉ๋วยยย', 'meji@gmail.com', '0918457813', 'meji', '2025-01-26 17:42:33'),
+(8, 'ครูแตง', 'krutang@gmail.com', '0800000000', '1234', '2025-01-27 07:48:07');
 
 -- --------------------------------------------------------
 
@@ -120,7 +155,12 @@ CREATE TABLE `rooms` (
   `name_rooms` varchar(100) NOT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `image` varchar(200) NOT NULL,
+  `gallery_image1` varchar(255) DEFAULT NULL,
+  `gallery_image2` varchar(255) DEFAULT NULL,
+  `gallery_image3` varchar(255) DEFAULT NULL,
+  `gallery_image4` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `amenities` text DEFAULT NULL,
   `type_rooms` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -128,11 +168,11 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id_rooms`, `name_rooms`, `price`, `image`, `description`, `type_rooms`) VALUES
-(2, 'Room 1', 100.00, '351048947694.jpg', 'ขยะ', 'ขยะ'),
-(5, 'Room 2', 1000.00, '1e3c0f8252f6463b86c11fea35ca74f7.jpg', 'นอนไปเถอะน่า', 'ห้องนอนผู้ชั้นดี'),
-(6, 'Room 3', 99999999.00, 'luxurious-bedroom-pastel-colours-neoclassical-style-with-large-bed-dressing-table-with-tv-unit-3d-render-733x550.jpg', 'ไม่มี', 'ห้องนอนหรูหราหมาเห่า'),
-(7, 'Room 4', 0.00, '259ff3b1-f7c8-47d2-9abf-4e7957760d8d.jpg', 'บ้านสมเด็จวัว', 'บ้านสมเด็จวัว');
+INSERT INTO `rooms` (`id_rooms`, `name_rooms`, `price`, `image`, `gallery_image1`, `gallery_image2`, `gallery_image3`, `gallery_image4`, `description`, `amenities`, `type_rooms`) VALUES
+(1, 'Sweet Room', 1000.00, '351048947694.jpg', '351048947694_g1.jpg', '351048947694_g2.jpg', '351048947694_g3.jpg', '351048947694_g4.jpg', 'ห้องนอนชั้นดี', 'Swimming Pool, Fitness Center, Restaurant, Spa', 'Standard'),
+(2, 'ยำรวมมิตร', 1.00, '470867612_2611776015672804_4066184825703543605_n.jpg', 'IMG_2561-scaled_g1.jpg', 'IMG_8892 ปรับโทน_g2.jpg', '471679039_540825558960521_357756192479994834_n_g3.jpg', '471874716_567960679476445_5768628145487853768_n_g4.jpg', 'test เฉยๆครับ', 'Swimming Pool, Fitness Center, Restaurant, Spa', 'Standard'),
+(101, 'Deluxe Room', 2000.00, '', '', '', '', '', 'sdasdsadasdas', 'Swimming Pool, Restaurant', 'Deluxe'),
+(102, 'ห้องนอน', 1.00, 'luxurious-bedroom-pastel-colours-neoclassical-style-with-large-bed-dressing-table-with-tv-unit-3d-render-733x550.jpg', 'luxurious-bedroom-pastel-colours-neoclassical-style-with-large-bed-dressing-table-with-tv-unit-3d-render-733x550_g1.jpg', '1e3c0f8252f6463b86c11fea35ca74f7_g2.jpg', '351048947694_g3.jpg', '259ff3b1-f7c8-47d2-9abf-4e7957760d8d_g4.jpg', 'นอนอย่างเดียว', 'Swimming Pool, Fitness Center, Restaurant, Spa', 'Suite');
 
 --
 -- Indexes for dumped tables
@@ -146,20 +186,16 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indexes for table `booking`
+-- Indexes for table `bookings`
 --
-ALTER TABLE `booking`
-  ADD PRIMARY KEY (`id_booking`),
-  ADD KEY `id_rooms` (`id_rooms`),
-  ADD KEY `booking_ibfk_2` (`id_customers`);
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id_booking`);
 
 --
 -- Indexes for table `contacts`
 --
 ALTER TABLE `contacts`
-  ADD PRIMARY KEY (`id_contacts`),
-  ADD KEY `id_booking` (`id_booking`),
-  ADD KEY `id_customers` (`id_customers`);
+  ADD PRIMARY KEY (`id_contacts`);
 
 --
 -- Indexes for table `customers`
@@ -192,22 +228,22 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `booking`
+-- AUTO_INCREMENT for table `bookings`
 --
-ALTER TABLE `booking`
-  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `bookings`
+  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id_contacts` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_contacts` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id_customers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_customers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -219,26 +255,11 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id_rooms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_rooms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `booking`
---
-ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`id_rooms`) REFERENCES `rooms` (`id_rooms`) ON DELETE CASCADE,
-  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`id_customers`) REFERENCES `customers` (`id_customers`) ON DELETE CASCADE,
-  ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`id_customer`) REFERENCES `customers` (`id_customers`) ON DELETE CASCADE;
-
---
--- Constraints for table `contacts`
---
-ALTER TABLE `contacts`
-  ADD CONSTRAINT `contacts_ibfk_1` FOREIGN KEY (`id_booking`) REFERENCES `booking` (`id_booking`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contacts_ibfk_2` FOREIGN KEY (`id_customers`) REFERENCES `customers` (`id_customers`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reviews`
