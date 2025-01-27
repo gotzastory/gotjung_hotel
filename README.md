@@ -31,38 +31,6 @@
 
 ---
 
-## **โครงสร้างโปรเจกต์**
-
-plaintext
-GotJung_Hotel/
-├── actions/
-│   └── process_booking.php         # การจัดการข้อมูลการจอง
-├── admin/
-│   ├── admin_Login.php            # หน้าล็อกอินของผู้ดูแลระบบ
-│   ├── dashboard.php              # หน้า Dashboard สำหรับผู้ดูแลระบบ
-│   ├── manage_services.php        # หน้าจัดการบริการ/ห้องพัก
-│   ├── manage_bookings.php        # หน้าจัดการรายการจอง
-├── assets/
-│   ├── css/                       # ไฟล์ CSS สำหรับการตกแต่งหน้าเว็บ
-│   ├── js/                        # ไฟล์ JavaScript สำหรับฟังก์ชันต่างๆ
-│   ├── images/                    # ไฟล์รูปภาพ
-├── database/
-│   └── hotel_bookings.sql          # โครงสร้างฐานข้อมูล MySQL
-├── includes/
-│   └── db_connect.php              # การเชื่อมต่อกับฐานข้อมูล
-├── pages/
-│   ├── booking.php                 # หน้าจองบริการ/ห้องพัก
-│   ├── booking_success.php         # หน้ายืนยันการจอง
-│   ├── detail_room.php             # หน้ารายละเอียดห้องพัก
-├── user/
-│   ├── Register.php                # หน้าสมัครสมาชิก
-│   ├── User_Login.php              # หน้าเข้าสู่ระบบ
-│   ├── Profile.php                 # หน้าโปรไฟล์ของลูกค้า
-│   ├── Review.php                  # หน้าเขียนรีวิว
-└── index.php                       # หน้าแรกของเว็บไซต์
-
----
-
 ## **การติดตั้ง**
 
 ### **เครื่องมือที่จำเป็น**
