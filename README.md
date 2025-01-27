@@ -1,5 +1,9 @@
 # GotJung_Hotel
 
+![GotJung Hotel Homepage](assets/images/index.png)
+
+---
+
 **GotJung_Hotel** เป็นระบบการจองโรงแรมออนไลน์ที่พัฒนาด้วยภาษา PHP, HTML, CSS (TailwindCSS) และฐานข้อมูล MySQL เหมาะสำหรับการจัดการการจองและการบริหารจัดการห้องพัก/บริการ โดยแบ่งการทำงานออกเป็น 2 ส่วนหลักคือ **Admin (ผู้ดูแลระบบ)** และ **Customer (ลูกค้า)**
 
 ---
