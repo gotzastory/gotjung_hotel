@@ -1,4 +1,4 @@
-# GotJung_Hotel
+# GotJung Hotel
 
 ![GotJung Hotel Homepage](assets/images/index.png)
 
